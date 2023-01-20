@@ -1,0 +1,10 @@
+# .vscode settings
+.vscode/
+
+# Rust specific files
+target/
+Cargo.lock
+
+# Visual Studio Code files
+.DS_Store
+*.code-workspace
