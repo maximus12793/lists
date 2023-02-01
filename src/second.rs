@@ -1,5 +1,6 @@
 // Bad Stack implementation.
 //
+// Note: Map takes self by *value* (equivalet of take)
 
 // Implement the following:
 // IntoIter -> T
@@ -29,7 +30,7 @@ pub struct Iter<'a, T> {
 }
 
 impl<T> List<T> {
-    pub fn iter(&self) -> Iter<T> {
+    pub fn iter<'a>(&'a self) -> Iter<'a, T> {
         Iter {
             next: self.head.as_deref(),
         }
