@@ -30,10 +30,11 @@ pub struct Iter<'a, T> {
 
 impl<T> List<T> {
     pub fn iter(&self) -> Iter<T> {
-        Iter { next: self.head.as_deref() }
+        Iter {
+            next: self.head.as_deref(),
+        }
     }
 }
-
 
 impl<'a, T> Iterator for Iter<'a, T> {
     type Item = &'a T;
