@@ -1,10 +1,17 @@
-use std::sync::Arc;
+// Random Notes:
+// Interior mutability: Mutate through shared reference.
+// Cell -> Single Thread. Lock -> Multi Thread.
+//
+// Exterior mutability: Typically via. mut keyword, but needs
+// additional care to avoid data races.
+//
+use std::rc::Rc;
 
 pub struct List<T> {
     head: Link<T>,
 }
 
-type Link<T> = Option<Arc<Node<T>>>;
+type Link<T> = Option<Rc<Node<T>>>;
 
 struct Node<T> {
     elem: T,
@@ -27,7 +34,7 @@ impl<T> Drop for List<T> {
     fn drop(&mut self) {
         let mut head = self.head.take();
         while let Some(node) = head {
-            if let Ok(mut node) = Arc::try_unwrap(node) {
+            if let Ok(mut node) = Rc::try_unwrap(node) {
                 head = node.next.take();
             } else {
                 break;
@@ -54,7 +61,7 @@ impl<T> List<T> {
 
     pub fn prepend(&self, elem: T) -> List<T> {
         List {
-            head: Some(Arc::new(Node {
+            head: Some(Rc::new(Node {
                 elem: elem,
                 next: self.head.clone(),
             })),
