@@ -6,4 +6,3 @@ Simple exercises following the guide of https://rust-unofficial.github.io/too-ma
 3. An Ok Stack
 4. A Persistant Stack
 5. A Bad Safe Deque
-6. ?
