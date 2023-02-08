@@ -65,6 +65,13 @@ impl<T> List<T> {
           Rc::try_unwrap(old_head).ok().unwrap().into_inner().elem
       })
     }
+
+    // TODO paused here (https://rust-unofficial.github.io/too-many-lists/fourth-peek.html)
+    pub fn peek_front(&self) -> Option<&T> {
+      self.head.as_ref().map(|node| {
+        &node.borrow().elem
+      })
+    }
 }
 
 impl<T> Drop for List<T> {
